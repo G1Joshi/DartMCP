@@ -22,12 +22,10 @@ void main() {
 }
 
 base class DartMCPServer extends MCPServer with ToolsSupport {
-  DartMCPServer({required super.channel})
+  DartMCPServer({required StreamChannel<String> channel})
     : super.fromStreamChannel(
-        implementation: ServerImplementation(
-          name: 'DartMCPServer',
-          version: '0.1.0',
-        ),
+        channel,
+        implementation: Implementation(name: 'DartMCPServer', version: '0.1.0'),
         instructions: 'A basic tool that can respond with "greet!"',
       );
 

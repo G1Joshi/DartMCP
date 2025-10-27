@@ -1,31 +1,34 @@
+import 'dart:io';
+
 import 'package:dart_mcp/client.dart';
+import 'package:dart_mcp/stdio.dart';
 
 class Client {
   void main() async {
     final client = MCPClient(
-      ClientImplementation(name: 'DartMCPClient', version: '0.1.0'),
+      Implementation(name: 'DartMCPClient', version: '0.1.0'),
     );
 
     print('Connecting to server...');
-    final server = await client.connectStdioServer('dart', [
-      'run',
-      'lib/src/server.dart',
-    ]);
+    final process = await Process.start('dart', ['run', 'lib/src/server.dart']);
+    final server = client.connectServer(
+      stdioChannel(input: process.stdout, output: process.stdin),
+    );
     print('Server started');
 
     print('Initializing server...');
     final initializeResult = await server.initialize(
       InitializeRequest(
-        protocolVersion: '2024-11-05',
+        protocolVersion: ProtocolVersion.latestSupported,
         capabilities: client.capabilities,
         clientInfo: client.implementation,
       ),
     );
 
     print('Initialized: $initializeResult');
-    if (initializeResult.protocolVersion != '2024-11-05') {
+    if (initializeResult.protocolVersion != ProtocolVersion.latestSupported) {
       throw StateError(
-        'Protocol version mismatch, expected ${'2024-11-05'}, '
+        'Protocol version mismatch, expected ${ProtocolVersion.latestSupported}, '
         'got ${initializeResult.protocolVersion}',
       );
     }
