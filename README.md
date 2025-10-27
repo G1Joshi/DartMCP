@@ -8,7 +8,7 @@ DartMCP is a Model Context Protocol (MCP) implementation in Dart, providing both
 
 ### Requirements
 
-- Dart SDK 3.7.2 or later
+- Dart SDK 3.9.2+
 - Works on any platform supported by Dart (macOS, Linux, Windows)
 
 ### Project Structure
@@ -28,7 +28,7 @@ The project is organized into two main components:
 
 ```yaml
 dependencies:
-  dart_mcp: ^0.1.0
+  dart_mcp: ^0.3.3
 ```
 
 2. Install dependencies:
@@ -43,7 +43,7 @@ The DartMCP server component provides a Model Context Protocol server implementa
 
 ### Features
 
-- Built with Dart 3.7.2+
+- Built with Dart 3.9.2+
 - Implements MCP protocol over standard I/O or custom channels
 - Includes support for logging, prompts, resources, and tools
 - Cross-platform support
@@ -74,7 +74,7 @@ The DartMCP client component allows Dart applications to connect to and interact
 
 ### Features
 
-- Built with Dart 3.7.2+
+- Built with Dart 3.9.2+
 - Implements MCP client over standard I/O or custom channels
 - Simple API for initializing and communicating with MCP servers
 - Streams for server notifications (tools, resources, logs, etc.)
